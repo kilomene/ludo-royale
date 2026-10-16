@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><style>html,body{margin:0;background:#0B0D12}canvas{display:block}</style></head>
+<body>
+<canvas id="board" width="1080" height="1080"></canvas>
+<script type="module">
+import { drawStaticBoard } from "./js/render-board.js";
+drawStaticBoard(document.getElementById("board"), true);
+</script>
+</body></html>

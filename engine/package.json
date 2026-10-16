@@ -1,0 +1,1 @@
+{"description":"Pure-JavaScript, zero-dependency Ludo rules engine for Ludo Royale","engines":{"node":">=24"},"license":"UNLICENSED","name":"ludo-royale-engine","scripts":{"simulate":"node simulate.js 200","test":"node --test 'test/*.test.js'"},"type":"commonjs","version":"1.0.0"}

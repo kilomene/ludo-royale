@@ -1,0 +1,43 @@
+name: build
+on:
+  push:
+    branches: ["main"]
+    tags: ["v*"]
+
+jobs:
+  apk:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build web bundle
+        run: |
+          cd qa
+          npm ci --no-audit --no-fund || npm install --no-audit --no-fund
+          bash build-web.sh
+
+      - name: Build APK
+        env:
+          LUDO_APK_OUT: ${{ github.workspace }}/out/ludo-royale.apk
+          LUDO_KEYSTORE: ${{ runner.temp }}/ludo-royale.keystore
+        run: |
+          # Runner exposes the JDK as a shell env var, not the GitHub env context.
+          export LUDO_JAVA_HOME="$JAVA_HOME_17_X64"
+          bash android/build-apk.sh
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ludo-royale-apk
+          path: out/ludo-royale.apk
+
+      - name: Publish GitHub release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" out/ludo-royale.apk \
+            --title "Ludo Royale $GITHUB_REF_NAME" \
+            --generate-notes

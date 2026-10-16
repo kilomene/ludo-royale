@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Ludo Royale</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- SPLASH -->
+  <section id="screen-splash" class="screen active">
+    <div class="splash-inner">
+      <div class="splash-dice"><canvas id="splash-dice" width="220" height="110"></canvas></div>
+      <h1 class="logo logo-xl">LUDO<br>ROYALE</h1>
+      <p class="tagline">THE CLASSIC, GILDED</p>
+      <button id="btn-enter" class="btn-gold pulse">TAP TO ENTER</button>
+    </div>
+  </section>
+
+  <!-- SETUP -->
+  <section id="screen-setup" class="screen">
+    <div class="setup-card">
+      <h1 class="logo logo-md">LUDO ROYALE</h1>
+
+      <div class="opt-group">
+        <label>PLAYERS</label>
+        <div class="segmented" id="seg-players">
+          <button data-v="2" class="on">2</button><button data-v="3">3</button><button data-v="4">4</button>
+        </div>
+      </div>
+
+      <div class="opt-group">
+        <label>DICE</label>
+        <div class="segmented" id="seg-dice">
+          <button data-v="1" class="on">ONE DIE <span class="die-glyph">⚀</span></button><button data-v="2">TWO DICE <span class="die-glyph">⚀⚀</span></button>
+        </div>
+      </div>
+
+      <div class="opt-group">
+        <label>MODE</label>
+        <div class="segmented" id="seg-mode">
+          <button data-v="ai" class="on">VS AI</button><button data-v="pass">PASS &amp; PLAY</button>
+        </div>
+      </div>
+
+      <div class="opt-group" id="group-difficulty">
+        <label>AI SKILL</label>
+        <div class="segmented" id="seg-diff">
+          <button data-v="casual">CASUAL</button><button data-v="sharp" class="on">SHARP</button><button data-v="grandmaster">GRANDMASTER</button>
+        </div>
+      </div>
+
+      <div class="opt-group">
+        <label>YOUR SEAT</label>
+        <div class="seats" id="seats"></div>
+      </div>
+
+      <button id="btn-start" class="btn-gold btn-big">ENTER THE TABLE</button>
+      <button id="btn-rules" class="btn-ghost">HOW TO PLAY</button>
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section id="screen-game" class="screen">
+    <header id="game-topbar">
+      <span class="logo logo-sm">LUDO ROYALE</span>
+      <div id="turn-banner"><span id="turn-dot"></span><span id="turn-text">Ruby to play</span></div>
+      <div class="topbtns">
+        <button id="btn-sound" class="icon-btn" title="Sound">♪</button>
+        <button id="btn-pause" class="icon-btn" title="Menu">II</button>
+      </div>
+    </header>
+    <div id="board-wrap"><canvas id="board" width="1080" height="1080"></canvas></div>
+    <footer id="dice-tray">
+      <div id="dice-slot"><canvas id="dice-canvas"></canvas></div>
+      <button id="btn-roll" class="btn-gold">ROLL</button>
+      <div id="hint">Roll the dice</div>
+    </footer>
+  </section>
+
+  <!-- PAUSE -->
+  <div id="overlay-pause" class="overlay hidden">
+    <div class="dialog">
+      <h2 class="logo logo-md">PAUSED</h2>
+      <button id="btn-resume" class="btn-gold btn-big">RESUME</button>
+      <button id="btn-rules2" class="btn-ghost">HOW TO PLAY</button>
+      <button id="btn-quit" class="btn-ghost danger">QUIT TO MENU</button>
+    </div>
+  </div>
+
+  <!-- RULES -->
+  <div id="overlay-rules" class="overlay hidden">
+    <div class="dialog dialog-wide">
+      <h2 class="logo logo-md">HOW TO PLAY</h2>
+      <div class="rules-body">
+        <p><b>Goal</b> — race all 4 tokens around the board and into your home triangle. First to bring all four home wins.</p>
+        <p><b>Leaving base</b> — you need a <b>6</b> to bring a token out onto your start square.</p>
+        <p><b>Extra turns</b> — rolling a 6, capturing an opponent, or bringing a token home earns another roll.</p>
+        <p><b>Three sixes</b> — roll three 6s in a row and your turn is forfeited. (In two-dice mode: three consecutive doubles.)</p>
+        <p><b>Captures</b> — land on an opponent's token to send it back to base… unless it stands on a <b>★ safe square</b>, where no one can be captured.</p>
+        <p><b>Blockades</b> — two or more of your tokens on one square form a blockade: opponents can neither pass nor capture it.</p>
+        <p><b>Exact finish</b> — you need the exact roll to enter home. Overshoot and that token can't move.</p>
+        <p><b>Two dice</b> — split the two values across tokens however you like; a 6 on either die can bring a token out; doubles roll again.</p>
+      </div>
+      <button id="btn-rules-close" class="btn-gold">GOT IT</button>
+    </div>
+  </div>
+
+  <!-- PODIUM -->
+  <div id="overlay-podium" class="overlay hidden">
+    <div class="dialog">
+      <h2 class="logo logo-md">VICTORY</h2>
+      <div id="podium-rows"></div>
+      <div id="podium-stats"></div>
+      <button id="btn-again" class="btn-gold btn-big">PLAY AGAIN</button>
+      <button id="btn-podium-menu" class="btn-ghost">MENU</button>
+    </div>
+  </div>
+
+</div>
+<script src="js/bundle.js"></script>
+</body>
+</html>

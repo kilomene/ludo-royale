@@ -1,0 +1,8 @@
+node_modules/
+qa/.tmp/
+qa/.chrome-cache/
+out/
+android/app/src/main/assets/
+web/js/ludo.esm.js
+web/js/bundle.js
+.DS_Store
