@@ -121,6 +121,7 @@ function startGame() {
       onGameOver: showPodium,
     });
     window.__ludoGame = game; // QA handle
+    window.__ludoPodium = showPodium; // QA handle
   });
 }
 

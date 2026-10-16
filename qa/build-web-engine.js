@@ -1,6 +1,10 @@
 // Build step: engine/ludo.js (CommonJS) -> web/js/ludo.esm.js (ESM). Single source of truth.
 import { readFileSync, writeFileSync } from "fs";
-const src = readFileSync("/home/hatch/workspace/ludo-royale/engine/ludo.js", "utf8");
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const src = readFileSync(join(ROOT, "engine", "ludo.js"), "utf8");
 const m = src.match(/module\.exports\s*=\s*\{([\s\S]*?)\};\s*$/);
 if (!m) throw new Error("module.exports block not found");
 
@@ -15,5 +19,5 @@ for (const em of m[1].matchAll(/^\s*([A-Za-z_$][\w$]*)\s*(?::\s*([^,]+))?,?\s*$/
   }
 }
 const esm = src.slice(0, m.index) + lines.join("\n") + "\n";
-writeFileSync("/home/hatch/workspace/ludo-royale/web/js/ludo.esm.js", esm);
+writeFileSync(join(ROOT, "web", "js", "ludo.esm.js"), esm);
 console.log("ludo.esm.js written,", lines.length, "export statements");
